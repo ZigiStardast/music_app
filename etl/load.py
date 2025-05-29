@@ -10,7 +10,8 @@ def load_to_db(dim_artists, dim_albums, fact_tracks, db_path):
     cur.execute("""
                 CREATE TABLE IF NOT EXISTS dim_artist (
                     id INTEGER PRIMERY KEY,
-                    name TEXT
+                    name TEXT,
+                    picture TEXT
                 )
                 """)
     
@@ -18,7 +19,21 @@ def load_to_db(dim_artists, dim_albums, fact_tracks, db_path):
     cur.execute("""
                 CREATE TABLE IF NOT EXISTS dim_album (
                     id INTEGER PRIMARY KEY,
-                    title TEXT
+                    title TEXT,
+                    cover TEXT
+                )
+                """)
+    
+    # dim_date
+    # dim_date (date_id, full_date, day, month, year, weekday_name)
+    cur.execute("""
+                CREATE TABLE IF NOT EXISTS dim_date (
+                    date_id INTEGER PRIMARY KEY,
+                    full_date DATETIME,
+                    day INTEGER,
+                    month INTEGER,
+                    year INTEGER,
+                    weekday_name TEXT
                 )
                 """)
     
@@ -39,8 +54,8 @@ def load_to_db(dim_artists, dim_albums, fact_tracks, db_path):
     
     
     # insert
-    cur.executemany("INSERT OR IGNORE INTO dim_artist (id, name) VALUES (?, ?)", dim_artists)
-    cur.executemany("INSERT INTO IGNORE INTO dim_album (id, title) VALUES (?, ?)", dim_albums)
+    cur.executemany("INSERT OR IGNORE INTO dim_artist (id, name, picture) VALUES (?, ?, ?)", dim_artists)
+    cur.executemany("INSERT OR IGNORE INTO dim_album (id, title, cover) VALUES (?, ?, ?)", dim_albums)
     
     cur.executemany("""
                     INSERT OR REPLACE INTO fact_tracks
@@ -58,7 +73,6 @@ def load_to_db(dim_artists, dim_albums, fact_tracks, db_path):
     
     conn.commit()
     conn.close()
-    
     
 def generate_dates():
     start_date = datetime(2025, 5, 20)

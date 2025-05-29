@@ -13,18 +13,20 @@ def transform_data(raw_data): # raw data je onaj all_data iz extract.py
     for entry in raw_data:
         artist_id = entry["artist_id"]
         artist_name = entry["artist_name"]
+        artist_picture =entry["picture"]
         tracks = entry["tracks"]
         
         if artist_id not in artist_ids_seen:
-            dim_artists.append((artist_id, artist_name))
+            dim_artists.append((artist_id, artist_name, artist_picture))
             artist_ids_seen.add(artist_id)
             
         for track in tracks:
             album_id = track["album"]["id"]
             album_title = track["album"]["title"]
+            album_cover = track["album"]["cover_medium"]
             
             if album_id not in album_ids_seen:
-                dim_albums.append((album_id, album_title))
+                dim_albums.append((album_id, album_title, album_cover))
                 album_ids_seen.add(album_id)
             
             

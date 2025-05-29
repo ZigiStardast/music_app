@@ -16,14 +16,18 @@ def fetch_artists_and_tracks(artist_names):
         artist_id = artist_info['id']
         artist_name = artist_info['name']
         artist_tracklist = requests.get(artist_info['tracklist']).json()['data']
+        artist_picture_medium = artist_info["picture_medium"]
         
         all_data.append(
             {
                 "artist_id": artist_id,
                 "artist_name": artist_name,
+                "picture": artist_picture_medium,
                 "tracks": artist_tracklist
             }
         )
         
     return all_data
         
+        
+    

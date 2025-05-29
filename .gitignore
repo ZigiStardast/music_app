@@ -1,0 +1,33 @@
+*.conf
+
+# terraform
+.terraform          
+*.tfstate           
+*.tfstate.backup
+*.tfstate.lock.*
+.terraform.lock.hcl
+variables.tf
+
+__pycache__
+*.conf
+__init__.py
+
+# airflow
+config/
+logs/
+plugins/
+dagRun.py
+
+.vscode/
+
+# Jupyter Notebook
+*.ipynb
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
